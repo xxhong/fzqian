@@ -1,4 +1,4 @@
-package com.xxhong.fxqian.fragment;
+package com.xxhong.fzqian.fragment;
 
 
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.xxhong.fxqian.R;
+import com.xxhong.fzqian.R;
 /**
  * 
  * 收入

@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    class="com.xxhong.fxqian.fragment.MeunFragment"
+    class="com.xxhong.fzqian.fragment.MeunFragment"
     >
 
 </fragment>

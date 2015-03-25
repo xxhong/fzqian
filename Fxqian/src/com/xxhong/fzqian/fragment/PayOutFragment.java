@@ -1,4 +1,4 @@
-package com.xxhong.fxqian.fragment;
+package com.xxhong.fzqian.fragment;
 
 
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xxhong.fxqian.R;
+import com.xxhong.fzqian.R;
 
 /**
  * 支出

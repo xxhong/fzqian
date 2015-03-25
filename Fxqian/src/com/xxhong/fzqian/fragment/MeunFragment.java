@@ -1,4 +1,4 @@
-package com.xxhong.fxqian.fragment;
+package com.xxhong.fzqian.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,10 +17,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.actionbarsherlock.internal.app.ActionBarImpl.TabImpl;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.xxhong.fxqian.MainActivity;
-import com.xxhong.fxqian.R;
+import com.xxhong.fzqian.R;
+import com.xxhong.fzqian.MainActivity;
 
 public class MeunFragment extends Fragment implements OnItemClickListener
 {

@@ -1,4 +1,4 @@
-package com.xxhong.fxqian;
+package com.xxhong.fzqian;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 

@@ -1,13 +1,13 @@
-package com.xxhong.fxqian;
+package com.xxhong.fzqian;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenedListener;
-import com.xxhong.fxqian.fragment.AddFzqFragment;
-import com.xxhong.fxqian.fragment.InComeFragment;
-import com.xxhong.fxqian.fragment.MeunFragment;
+import com.xxhong.fzqian.fragment.AddFzqFragment;
+import com.xxhong.fzqian.fragment.InComeFragment;
+import com.xxhong.fzqian.fragment.MeunFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	RelativeLayout rlIncome, rlPayout, rlSetting;
 
 	private void initSlidingMenu() {
 		mSlidingMenu = new SlidingMenu(this);
@@ -53,14 +52,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 						R.id.content_frame,
 						new MeunFragment(getSupportFragmentManager(),
 								mSlidingMenu)).commit();
-		mSlidingMenu.setOnOpenedListener(new OnOpenedListener() {
-
-			@Override
-			public void onOpened() {
-				menuAdd.setVisible(false);
-				menuSearch.setVisible(false);
-			}
-		});
 	}
 
 	private void initActionBarAndListener() {
@@ -68,13 +59,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		supportActionBar.setHomeButtonEnabled(true);
 	}
 
-	private MenuItem menuAdd, menuSearch;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main, menu);
-		menuAdd = menu.findItem(R.id.action_add);
-		menuSearch = menu.findItem(R.id.action_settings);
 		return true;
 	}
 

@@ -1,6 +1,6 @@
-package com.xxhong.fxqian.fragment;
+package com.xxhong.fzqian.fragment;
 
-import com.xxhong.fxqian.R;
+import com.xxhong.fzqian.R;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

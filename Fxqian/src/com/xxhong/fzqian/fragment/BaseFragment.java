@@ -1,10 +1,10 @@
-package com.xxhong.fxqian.fragment;
+package com.xxhong.fzqian.fragment;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.xxhong.fxqian.R;
+import com.xxhong.fzqian.R;
 
 public class BaseFragment extends SherlockFragment {
 

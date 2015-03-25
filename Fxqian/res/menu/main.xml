@@ -3,14 +3,8 @@
     tools:context="com.example.fxqian.MainActivity" >
 
     <item
-        android:id="@+id/action_search"
-        android:actionViewClass="android.widget.SearchView"
-        android:icon="@drawable/actionbar_search_icon"
-        android:showAsAction="ifRoom|collapseActionView"
-        android:title="@string/action_search"/>
-    <item
         android:id="@+id/action_plus"
-        android:actionProviderClass="com.gao.actionprovider.PlusActionProvider"
+        android:actionProviderClass="com.xxhong."
         android:icon="@drawable/ic_action_search"
         android:showAsAction="ifRoom"
         android:title="@string/action_plus"/>
@@ -35,9 +29,5 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_action_search"
         android:title="Setting"/>
-    <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/ic_action_new"
-        android:title="Add1"/>
 
 </menu>

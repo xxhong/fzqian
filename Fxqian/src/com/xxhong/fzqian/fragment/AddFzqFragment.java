@@ -1,4 +1,4 @@
-package com.xxhong.fxqian.fragment;
+package com.xxhong.fzqian.fragment;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -6,7 +6,7 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.xxhong.fxqian.R;
+import com.xxhong.fzqian.R;
 
 import android.database.DataSetObserver;
 import android.os.Bundle;
