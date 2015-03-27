@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.fxqian.MainActivity" >
+    <item
+        android:id="@+id/ok"
+        android:icon="@drawable/cx_ok"
+        android:showAsAction="ifRoom"
+        android:title="确定"/>
+
+</menu>

@@ -1,7 +1,7 @@
 package com.xxhong.fzqian.activity;
 
 import android.os.Bundle;
-
+import static com.xxhong.fzqian.utils.UiUtil.showToast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 

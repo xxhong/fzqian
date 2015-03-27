@@ -19,6 +19,7 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.xxhong.fzqian.R;
 import com.xxhong.fzqian.utils.JsonParser;
+import com.xxhong.fzqian.utils.UiUtil;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -127,7 +128,7 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 		 * 识别回调错误.
 		 */
 		public void onError(SpeechError error) {
-			// showTip(error.getPlainDescription(true));
+			UiUtil.showToast(error.getPlainDescription(true));
 		}
 
 	};
