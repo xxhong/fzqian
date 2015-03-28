@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="libs/Sunflower.jar"/>
 	<classpathentry kind="lib" path="libs/Msc.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Users/xuxihong/Documents/xxhong/git/Fxqian/libs/xUtils-2.6.14.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

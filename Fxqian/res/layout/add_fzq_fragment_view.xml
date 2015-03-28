@@ -4,9 +4,10 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:id="@+id/linearLayout1">
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -16,61 +17,96 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="姓名" /><Button
-                android:id="@+id/bt_voice"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:hint="姓名" />
+
+            <com.xxhong.lib.view.XXButton
+                android:id="@+id/bt_voice_name"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/voice_unselect" />
+                android:layout_marginRight="10dp"
+                android:background="@drawable/voice_unselect"
+                android:visibility="gone" />
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp" >
+
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="金额" />
+
+            <com.xxhong.lib.view.XXButton
+                android:id="@+id/bt_voice_money"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/voice_unselect"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:hint="金额" />
-
-        <EditText
+            android:id="@+id/et_cause"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="事因" />
 
         <EditText
+            android:id="@+id/et_time"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="时间" />
 
-        <EditText
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:hint="手机号" />
+            android:layout_height="50dp" >
 
-        <EditText
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="手机号" />
+
+            <com.xxhong.lib.view.XXButton
+                android:id="@+id/bt_voice_phone"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/voice_unselect"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:hint="备注" />
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/et_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|top"
+                android:hint="备注"
+                android:maxLines="3"
+                android:minLines="3" />
+
+            <com.xxhong.lib.view.XXButton
+                android:id="@+id/bt_voice_desc"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/voice_unselect"
+                android:visibility="gone" />
+        </RelativeLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button1"
-        android:onClick="stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="46dp"
-        android:text="stop" />
-
-    <Button
-        android:id="@+id/button2"
-        android:onClick="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:text="start" />
 
 </RelativeLayout>
