@@ -7,6 +7,8 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="libs/Sunflower.jar"/>
 	<classpathentry kind="lib" path="libs/Msc.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/xuxihong/Documents/xxhong/git/Fxqian/libs/xUtils-2.6.14.jar"/>
+	<classpathentry kind="lib" path="libs/umeng-analytics-v5.4.2.jar"/>
+	<classpathentry kind="lib" path="libs/com.umeng.fb.5.2.0.jar"/>
+	<classpathentry kind="lib" path="libs/com.umeng.message.lib_v2.0.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

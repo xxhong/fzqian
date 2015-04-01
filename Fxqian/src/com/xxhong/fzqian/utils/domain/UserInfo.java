@@ -1,7 +1,11 @@
 package com.xxhong.fzqian.utils.domain;
 
+import com.lidroid.xutils.db.annotation.Table;
+
+
+@Table(name="user_info")
 public class UserInfo {
-	private String id;//主键
+	private String _id;//主键
 	private String uuid; //唯一标识
 	private String userName;//人名
 	private String money;//钱数
@@ -29,11 +33,12 @@ public class UserInfo {
 		this.userType = userType;
 		this.isSync = isSync;
 	}
-	public String getId() {
-		return id;
+	
+	public String get_id() {
+		return _id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 	public String getUuid() {
 		return uuid;

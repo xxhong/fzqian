@@ -7,7 +7,12 @@ import java.util.UUID;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,6 +39,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.xxhong.fzqian.FzqApp;
 import com.xxhong.fzqian.R;
+import com.xxhong.fzqian.contentprovider.UserInfoProvider;
 import com.xxhong.fzqian.net.RequestServerData;
 import com.xxhong.fzqian.utils.DesException;
 import com.xxhong.fzqian.utils.JsonParser;
@@ -44,11 +50,11 @@ import com.xxhong.fzqian.utils.domain.UserInfo;
 import com.xxhong.lib.uitl.TextUtil;
 
 public class AddFzqActivity extends BaseActivity implements OnClickListener {
-	
-	public static void  startThis(){
-		
+
+	public static void startThis() {
+
 	}
-	
+
 	// 用HashMap存储听写结果
 	private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
 	private Button btVoiceName, btVoiceMoney, btVoicePhone, btVoiceDesc;
@@ -63,8 +69,9 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 	}
 
 	EditStatus mEditStaus;
-	//1 送礼之人  0收礼之人
+	// 1 送礼之人 0收礼之人
 	private int userType;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -77,7 +84,7 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void init() {
-		userType = getIntent().getIntExtra("userTpey", 1);//默认送礼之人
+		userType = getIntent().getIntExtra("userTpey", 1);// 默认送礼之人
 		// 初始化识别对象
 		mIat = SpeechRecognizer.createRecognizer(this, mInitListener);
 		// 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
@@ -173,47 +180,49 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 		if (itemId == android.R.id.home) {
 			finish();
 		}
-		if(itemId==R.id.ok){
+		if (itemId == R.id.ok) {
 			doAddUserInfo();
 		}
 		return super.onOptionsItemSelected(item);
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.okbtn, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+
 	/**
 	 * 添加收礼之人
 	 */
-	public void doAddUserInfo(){
+	public void doAddUserInfo() {
 		String name = etName.getText().toString().trim();
 		String money = etMoney.getText().toString().trim();
 		String cause = etCause.getText().toString().trim();
 		String time = etTime.getText().toString().trim();
 		String phone = etPhone.getText().toString().trim();
 		String desc = etDesc.getText().toString().trim();
-		if(TextUtils.isEmpty(name)){
-			if(userType==1){//送礼之人
+		if (TextUtils.isEmpty(name)) {
+			if (userType == 1) {// 送礼之人
 				UiUtil.showToast("请输入送礼之人");
-			}else{
+			} else {
 				UiUtil.showToast("请输入收礼之人");
 			}
 			return;
 		}
-		if(TextUtils.isEmpty(money)){
+		if (TextUtils.isEmpty(money)) {
 			UiUtil.showToast("请输入礼金");
 			return;
 		}
-		if(TextUtils.isEmpty(cause)){
+		if (TextUtils.isEmpty(cause)) {
 			UiUtil.showToast("请输入原因");
 			return;
 		}
-		String uuid = UUID.randomUUID()+"";
-		UserInfo userInfo = new UserInfo(uuid, name, money, cause, time, desc, phone, userType, "0");
-		if(Account.getInstance().isLogin()){
+		String uuid = UUID.randomUUID() + "";
+		UserInfo userInfo = new UserInfo(uuid, name, money, cause, time, desc,
+				phone, userType, "0");
+		if (Account.getInstance().isLogin()) {
 			RequestParams userInfo2params;
 			try {
 				userInfo2params = RequestParamsUtil.userInfo2params(userInfo);
@@ -222,26 +231,58 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 				e.printStackTrace();
 				return;
 			}
-			RequestServerData.addUserInfo(userInfo2params, new RequestCallBack<String>() {
-				
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					UiUtil.showToast("添加成功");
-				}
-				
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					UiUtil.showToast("添加失败");
-				}
-			});
-		}else{
-			try {
-				FzqApp.mDb.save(userInfo);
-			} catch (DbException e) {
-				e.printStackTrace();
-			}
+			RequestServerData.addUserInfo(userInfo2params,
+					new RequestCallBack<String>() {
+
+						@Override
+						public void onSuccess(ResponseInfo<String> arg0) {
+							UiUtil.showToast("添加成功");
+						}
+
+						@Override
+						public void onFailure(HttpException arg0, String arg1) {
+							UiUtil.showToast("添加失败");
+						}
+					});
+		} else {
+			// FzqApp.mDb.save(userInfo);
+			ContentValues values = new ContentValues();
+			values.put("uuid", userInfo.getUuid());
+			values.put("userName", userInfo.getUserName());
+			values.put("money", userInfo.getMoney());
+			values.put("cause", userInfo.getCause());
+			values.put("time", userInfo.getTime());
+			values.put("desc", userInfo.getDesc());
+			values.put("phone", userInfo.getPhone());
+			values.put("userType", userInfo.getUserType());
+			values.put("isSync", userInfo.getIsSync());
+			Uri uri = Uri.withAppendedPath(UserInfoProvider.uri, "user_info");
+			getContentResolver().insert(uri, values);
+			showAddSuccDialog();
 		}
-		
+
+	}
+
+	public void showAddSuccDialog() {
+		AlertDialog.Builder build = new Builder(this);
+		build.setTitle("添加成功");
+		build.setMessage("继续添加?");
+		build.setPositiveButton("继续", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+				cleanText();
+			}
+		});
+		build.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				AddFzqActivity.this.finish();
+			}
+		});
+		build.create().show();
 	}
 
 	@Override
@@ -323,5 +364,16 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 			etDesc.setText(resultBuffer.toString());
 			etDesc.setSelection(etDesc.length());
 		}
+	}
+
+	private void cleanText() {
+		etName.setText("");
+		etName.requestFocus();
+		etMoney.setText("");
+		etCause.setText("");
+		etTime.setText("");
+		etPhone.setText("");
+		etDesc.setText("");
+
 	}
 }

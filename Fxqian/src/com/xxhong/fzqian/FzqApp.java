@@ -4,32 +4,115 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.DbUtils.DbUpgradeListener;
+import com.umeng.fb.push.FeedbackPush;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
+import com.xxhong.fzqian.db.FzqDb;
 import com.xxhong.lib.uitl.PersistTool;
 
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
+import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
+import android.widget.RemoteViews;
+import android.widget.Toast;
 
-public class FzqApp extends Application{
+public class FzqApp extends Application {
 	public static Context mContext;
-	public static DbUtils mDb;
+	public static FzqDb mDb;
+	private PushAgent mPushAgent;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
-		
-		//初始化讯飞
-		SpeechUtility.createUtility(this, SpeechConstant.APPID +"=5513d7d9");
-		
+
+		// 初始化讯飞
+		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5513d7d9");
+		FeedbackPush.getInstance(this).init(false);
 		PersistTool.init(this);
 		initDB();
+		initUpush();
 	}
-	private void initDB() {
-		mDb = DbUtils.create(this, "fzqian.db", 1, new DbUpgradeListener() {
-			
+
+	private void initUpush() {
+		mPushAgent = PushAgent.getInstance(this);
+		mPushAgent.setDebugMode(true);
+		/**
+		 * 该Handler是在IntentService中被调用，故 1.
+		 * 如果需启动Activity，需添加Intent.FLAG_ACTIVITY_NEW_TASK 2.
+		 * IntentService里的onHandleIntent方法是并不处于主线程中，因此，如果需调用到主线程，需如下所示;
+		 * 或者可以直接启动Service
+		 * */
+		UmengMessageHandler messageHandler = new UmengMessageHandler() {
 			@Override
-			public void onUpgrade(DbUtils arg0, int arg1, int arg2) {
-				
+			public void dealWithCustomMessage(final Context context,
+					final UMessage msg) {
+				new Handler(getMainLooper()).post(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						UTrack.getInstance(getApplicationContext())
+								.trackMsgClick(msg);
+						Toast.makeText(context, msg.custom, Toast.LENGTH_LONG)
+								.show();
+					}
+				});
 			}
-		});
+
+			@Override
+			public Notification getNotification(Context context, UMessage msg) {
+				switch (msg.builder_id) {
+				case 1:
+					NotificationCompat.Builder builder = new NotificationCompat.Builder(
+							context);
+					RemoteViews myNotificationView = new RemoteViews(
+							context.getPackageName(),
+							R.layout.notification_view);
+					myNotificationView.setTextViewText(R.id.notification_title,
+							msg.title);
+					myNotificationView.setTextViewText(R.id.notification_text,
+							msg.text);
+					myNotificationView.setImageViewBitmap(
+							R.id.notification_large_icon,
+							getLargeIcon(context, msg));
+					myNotificationView.setImageViewResource(
+							R.id.notification_small_icon,
+							getSmallIconId(context, msg));
+					builder.setContent(myNotificationView);
+					builder.setAutoCancel(true);
+					Notification mNotification = builder.build();
+					// 由于Android
+					// v4包的bug，在2.3及以下系统，Builder创建出来的Notification，并没有设置RemoteView，故需要添加此代码
+					mNotification.contentView = myNotificationView;
+					return mNotification;
+				default:
+					// 默认为0，若填写的builder_id并不存在，也使用默认。
+					return super.getNotification(context, msg);
+				}
+			}
+		};
+		mPushAgent.setMessageHandler(messageHandler);
+
+		/**
+		 * 该Handler是在BroadcastReceiver中被调用，故
+		 * 如果需启动Activity，需添加Intent.FLAG_ACTIVITY_NEW_TASK
+		 * */
+		UmengNotificationClickHandler notificationClickHandler = new UmengNotificationClickHandler() {
+			@Override
+			public void dealWithCustomAction(Context context, UMessage msg) {
+				Toast.makeText(context, msg.custom, Toast.LENGTH_LONG).show();
+			}
+		};
+		mPushAgent.setNotificationClickHandler(notificationClickHandler);
+	}
+
+	private void initDB() {
+//		mDb = new FzqDb(this);
 	}
 }

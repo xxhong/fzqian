@@ -15,5 +15,17 @@
     <string name="plus_video_chat">视频聊天</string>
     <string name="plus_scan">扫一扫</string>
     <string name="plus_take_photo">拍照分享</string>
-
+	<string name="sql">CREATE TABLE  IF NOT EXISTS "user_info" ("_id"	TEXT,"isSync"	TEXT,
+	"allName"	TEXT,
+	"time"	TEXT,
+	"phone"	TEXT,
+	"abc"	TEXT,
+	"desc"	TEXT,
+	"cause"	TEXT,
+	"money"	TEXT,
+	"userName"	TEXT,
+	"uuid"	TEXT,
+	"userType"	INTEGER,
+	PRIMARY KEY(_id)
+);</string>
 </resources>
