@@ -53,7 +53,8 @@ public class InComeFragment extends BaseFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		getLoaderManager().initLoader(0, null, this);
+		Loader<Cursor> loader = getLoaderManager().initLoader(0, null, this);
+		
 	}
 
 	@Override
@@ -98,19 +99,20 @@ public class InComeFragment extends BaseFragment implements
 	public void add() {
 //		SQLiteDatabase db = FzqApp.mContext.openOrCreateDatabase("fzqian.db",
 //				Context.MODE_PRIVATE, null);
-//		ContentValues v = new ContentValues();
-//		v.put("userName", "张三");
-//		v.put("money", "1100");
-//		v.put("cause", "结婚");
+		ContentValues v = new ContentValues();
+		v.put("userName", "张三");
+		v.put("money", "1100");
+		v.put("cause", "结婚");
 //		long insert = db.insert("user_info", null, v);
-		Uri uri = Uri.withAppendedPath(UserInfoProvider.uri, "user_info/money/100");
-		Cursor query = getActivity().getContentResolver().query(uri, null, null, null, null);
-		if(query!=null&&query.moveToFirst()){
-			
-			String userName = query.getString(query.getColumnIndex("userName"));
-			Toast.makeText(getActivity(), userName, 0).show();
-			
-		}
+//		Uri uri = Uri.withAppendedPath(UserInfoProvider.uri, "user_info/money/100");
+//		Cursor query = getActivity().getContentResolver().query(uri, null, null, null, null);
+//		if(query!=null&&query.moveToFirst()){
+//			
+//			String userName = query.getString(query.getColumnIndex("userName"));
+//			Toast.makeText(getActivity(), userName, 0).show();
+//			
+		Uri uri = Uri.withAppendedPath(UserInfoProvider.uri, "user_info");
+		getActivity().getContentResolver().insert(uri, v);
 	}
 
 	@Override
