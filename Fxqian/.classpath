@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="libs/umeng-analytics-v5.4.2.jar"/>
 	<classpathentry kind="lib" path="libs/com.umeng.fb.5.2.0.jar"/>
 	<classpathentry kind="lib" path="libs/com.umeng.message.lib_v2.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/smscaptcha_v_1_4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

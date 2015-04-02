@@ -4,6 +4,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.DbUtils.DbUpgradeListener;
+import com.thinkland.sdk.util.CommonFun;
 import com.umeng.fb.push.FeedbackPush;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UTrack;
@@ -30,7 +31,7 @@ public class FzqApp extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
-
+		CommonFun.initialize(getApplicationContext(), true);
 		// 初始化讯飞
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5513d7d9");
 		FeedbackPush.getInstance(this).init(false);
@@ -113,6 +114,6 @@ public class FzqApp extends Application {
 	}
 
 	private void initDB() {
-//		mDb = new FzqDb(this);
+		// mDb = new FzqDb(this);
 	}
 }

@@ -14,6 +14,14 @@ public class RequestServerData {
 	 * @param callBack
 	 */
 	public static void addUserInfo(RequestParams params,RequestCallBack<String>callBack){
-		http.send(HttpRequest.HttpMethod.GET, UrlUtil.getAddUrl(), params, callBack);
+		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getAddUrl(), params, callBack);
+	}
+	/**
+	 * 用户注册
+	 * @param params
+	 * @param callBack
+	 */
+	public static void userReg(RequestParams params,RequestCallBack<String>callBack){
+		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getUserRegUrl(), params, callBack);
 	}
 }
