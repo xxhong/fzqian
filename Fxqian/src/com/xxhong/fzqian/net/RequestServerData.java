@@ -24,4 +24,12 @@ public class RequestServerData {
 	public static void userReg(RequestParams params,RequestCallBack<String>callBack){
 		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getUserRegUrl(), params, callBack);
 	}
+	/**
+	 * 用户注册
+	 * @param params
+	 * @param callBack
+	 */
+	public static void userLogin(RequestParams params,RequestCallBack<String>callBack){
+		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getUserLoginUrl(), params, callBack);
+	}
 }

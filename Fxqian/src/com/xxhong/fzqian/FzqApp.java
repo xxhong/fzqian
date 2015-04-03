@@ -1,5 +1,7 @@
 package com.xxhong.fzqian;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.lidroid.xutils.DbUtils;
@@ -12,6 +14,7 @@ import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.xxhong.fzqian.db.FzqDb;
+import com.xxhong.fzqian.utils.LogManager;
 import com.xxhong.lib.uitl.PersistTool;
 
 import android.app.Application;
@@ -31,13 +34,21 @@ public class FzqApp extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
+		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+			@Override
+			public void uncaughtException(Thread thread, Throwable ex) {
+				LogManager.getInstance().saveLog(ex, mContext);
+				android.os.Process.killProcess(android.os.Process.myPid());
+			}
+		});
 		CommonFun.initialize(getApplicationContext(), true);
 		// 初始化讯飞
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5513d7d9");
 		FeedbackPush.getInstance(this).init(false);
 		PersistTool.init(this);
 		initDB();
-		initUpush();
+//		initUpush();
+		
 	}
 
 	private void initUpush() {

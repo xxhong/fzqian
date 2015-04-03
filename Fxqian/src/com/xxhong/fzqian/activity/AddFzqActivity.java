@@ -47,7 +47,6 @@ import com.xxhong.fzqian.utils.RequestParamsUtil;
 import com.xxhong.fzqian.utils.UiUtil;
 import com.xxhong.fzqian.utils.domain.Account;
 import com.xxhong.fzqian.utils.domain.UserInfo;
-import com.xxhong.lib.uitl.TextUtil;
 
 public class AddFzqActivity extends BaseActivity implements OnClickListener {
 

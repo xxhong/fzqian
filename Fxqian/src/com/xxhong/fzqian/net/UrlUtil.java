@@ -13,4 +13,7 @@ public class UrlUtil {
 
 		return getHost()+"user_reg.php";
 	}
+	public static String getUserLoginUrl() {
+		return getHost()+"user_login.php";
+	}
 }
