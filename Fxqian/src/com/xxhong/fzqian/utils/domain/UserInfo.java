@@ -1,11 +1,15 @@
 package com.xxhong.fzqian.utils.domain;
 
-import com.lidroid.xutils.db.annotation.Table;
+import java.util.UUID;
+
+import net.tsz.afinal.annotation.sqlite.Table;
+
+import com.xxhong.fzqian.FzqApp;
 
 
 @Table(name="user_info")
 public class UserInfo {
-	private String _id;//主键
+	private String id;//主键
 	private String uuid; //唯一标识
 	private String userName;//人名
 	private String money;//钱数
@@ -20,10 +24,10 @@ public class UserInfo {
 	
 	public UserInfo() {
 	}
-	public UserInfo(String uuid, String userName, String money,
+	public UserInfo(String userName, String money,
 			String cause, String time, String desc, String phone,int userType, String isSync) {
 		super();
-		this.uuid = uuid;
+		this.uuid =UUID.randomUUID() + "";
 		this.userName = userName;
 		this.money = money;
 		this.cause = cause;
@@ -34,11 +38,11 @@ public class UserInfo {
 		this.isSync = isSync;
 	}
 	
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getUuid() {
 		return uuid;
@@ -107,7 +111,9 @@ public class UserInfo {
 		this.isSync = isSync;
 	}
 	
-	
+	public static void save(UserInfo info) {
+			FzqApp.mDb.save(info);
+	}
 	
 	
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:hint="请输入用户名"
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:ems="10" >
+    </EditText>
+
+    <EditText
+        android:hint="请输入密码"
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_username"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="登录" />
+
+    <Button
+        android:id="@+id/bt_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bt_login"
+        android:layout_toRightOf="@+id/bt_login"
+        android:text="注册" />
+
+    <Button
+        android:id="@+id/bt_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bt_reg"
+        android:layout_alignBottom="@+id/bt_reg"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/bt_reg"
+        android:text="跳过" />
+
+</RelativeLayout>

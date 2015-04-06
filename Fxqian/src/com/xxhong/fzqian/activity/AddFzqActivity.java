@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.UUID;
 
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.android.agoo.net.async.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,14 +36,8 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.lidroid.xutils.exception.DbException;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.xxhong.fzqian.FzqApp;
 import com.xxhong.fzqian.R;
-import com.xxhong.fzqian.contentprovider.UserInfoProvider;
 import com.xxhong.fzqian.net.RequestServerData;
 import com.xxhong.fzqian.utils.DesException;
 import com.xxhong.fzqian.utils.JsonParser;
@@ -218,11 +216,11 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 			UiUtil.showToast("请输入原因");
 			return;
 		}
-		String uuid = UUID.randomUUID() + "";
-		UserInfo userInfo = new UserInfo(uuid, name, money, cause, time, desc,
+		
+		final UserInfo userInfo = new UserInfo( name, money, cause, time, desc,
 				phone, userType, "0");
 		if (Account.getInstance().isLogin()) {
-			RequestParams userInfo2params;
+			AjaxParams userInfo2params;
 			try {
 				userInfo2params = RequestParamsUtil.userInfo2params(userInfo);
 			} catch (DesException e) {
@@ -230,33 +228,30 @@ public class AddFzqActivity extends BaseActivity implements OnClickListener {
 				e.printStackTrace();
 				return;
 			}
-			RequestServerData.addUserInfo(userInfo2params,
-					new RequestCallBack<String>() {
+			RequestServerData.addUserInfo(userInfo2params, new AjaxCallBack<String>() {
 
-						@Override
-						public void onSuccess(ResponseInfo<String> arg0) {
-							UiUtil.showToast("添加成功");
-						}
+				@Override
+				public void onStart() {
+					super.onStart();
+				}
 
-						@Override
-						public void onFailure(HttpException arg0, String arg1) {
-							UiUtil.showToast("添加失败");
-						}
-					});
+				@Override
+				public void onSuccess(String t) {
+					super.onSuccess(t);
+					UiUtil.showToast("添加成功");
+				}
+
+				@Override
+				public void onFailure(Throwable t, int errorNo, String strMsg) {
+					super.onFailure(t, errorNo, strMsg);
+					UiUtil.showToast("添加成功");
+					UserInfo.save(userInfo);
+				}
+				
+				
+			});
 		} else {
-			// FzqApp.mDb.save(userInfo);
-			ContentValues values = new ContentValues();
-			values.put("uuid", userInfo.getUuid());
-			values.put("userName", userInfo.getUserName());
-			values.put("money", userInfo.getMoney());
-			values.put("cause", userInfo.getCause());
-			values.put("time", userInfo.getTime());
-			values.put("desc", userInfo.getDesc());
-			values.put("phone", userInfo.getPhone());
-			values.put("userType", userInfo.getUserType());
-			values.put("isSync", userInfo.getIsSync());
-			Uri uri = Uri.withAppendedPath(UserInfoProvider.uri, "user_info");
-			getContentResolver().insert(uri, values);
+			FzqApp.mDb.save(userInfo);
 			showAddSuccDialog();
 		}
 

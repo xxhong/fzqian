@@ -2,10 +2,11 @@ package com.xxhong.fzqian;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import net.tsz.afinal.FinalDb;
+import net.tsz.afinal.FinalDb.DbUpdateListener;
+
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.lidroid.xutils.DbUtils;
-import com.lidroid.xutils.DbUtils.DbUpgradeListener;
 import com.thinkland.sdk.util.CommonFun;
 import com.umeng.fb.push.FeedbackPush;
 import com.umeng.message.PushAgent;
@@ -20,6 +21,7 @@ import com.xxhong.lib.uitl.PersistTool;
 import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
@@ -27,7 +29,7 @@ import android.widget.Toast;
 
 public class FzqApp extends Application {
 	public static Context mContext;
-	public static FzqDb mDb;
+	public static FinalDb mDb;
 	private PushAgent mPushAgent;
 
 	@Override
@@ -41,14 +43,15 @@ public class FzqApp extends Application {
 				android.os.Process.killProcess(android.os.Process.myPid());
 			}
 		});
+		initDB();
 		CommonFun.initialize(getApplicationContext(), true);
 		// 初始化讯飞
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5513d7d9");
 		FeedbackPush.getInstance(this).init(false);
 		PersistTool.init(this);
-		initDB();
-//		initUpush();
-		
+
+		// initUpush();
+
 	}
 
 	private void initUpush() {
@@ -124,7 +127,20 @@ public class FzqApp extends Application {
 		mPushAgent.setNotificationClickHandler(notificationClickHandler);
 	}
 
+	@SuppressWarnings("static-access")
 	private void initDB() {
-		// mDb = new FzqDb(this);
+		mDb = mDb.create(mContext, "fenziqian.db", true, 1,
+				new DbUpdateListener() {
+
+					@Override
+					public void onUpgrade(SQLiteDatabase db, int oldVersion,
+							int newVersion) {
+					}
+				});
+
+	}
+
+	public static void save(Object obj) {
+		mDb.save(obj);
 	}
 }

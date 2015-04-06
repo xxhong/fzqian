@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/et_phone_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="请输入手机号"
+        android:inputType="phone" />
+
+    <EditText
+        android:hint="请输入密码"
+        android:id="@+id/et_password_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_phone_num"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="7dp"
+        android:inputType="textPassword" >
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/bt_get_vcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password_reg"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="验证手机号" />
+
+    <EditText
+        android:id="@+id/et_vcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_get_vcode"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="请输入验证码" >
+    </EditText>
+
+    <Button
+        android:id="@+id/bt_verify_vcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_vcode"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="提交注册" />
+
+</RelativeLayout>

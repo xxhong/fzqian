@@ -1,35 +1,35 @@
 package com.xxhong.fzqian.net;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
 
 public class RequestServerData {
-	private static HttpUtils http = new HttpUtils();
+	private static FinalHttp http = new FinalHttp();
 	
 	/**
 	 * 上传份子钱
 	 * @param params
 	 * @param callBack
 	 */
-	public static void addUserInfo(RequestParams params,RequestCallBack<String>callBack){
-		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getAddUrl(), params, callBack);
+	public static void addUserInfo(AjaxParams params,AjaxCallBack<String> callBack){
+		http.post(UrlUtil.getAddUrl(), params, callBack);
 	}
 	/**
 	 * 用户注册
 	 * @param params
 	 * @param callBack
 	 */
-	public static void userReg(RequestParams params,RequestCallBack<String>callBack){
-		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getUserRegUrl(), params, callBack);
+	public static void userReg(AjaxParams params,AjaxCallBack<String> callBack){
+		http.post(UrlUtil.getUserRegUrl(), params, callBack);
 	}
 	/**
 	 * 用户注册
 	 * @param params
 	 * @param callBack
 	 */
-	public static void userLogin(RequestParams params,RequestCallBack<String>callBack){
-		http.send(HttpRequest.HttpMethod.POST, UrlUtil.getUserLoginUrl(), params, callBack);
+	public static void userLogin(AjaxParams params,AjaxCallBack<String> callBack){
+		http.post(UrlUtil.getUserLoginUrl(), params, callBack);
 	}
 }

@@ -1,6 +1,7 @@
 package com.xxhong.fzqian.utils;
 
-import com.lidroid.xutils.http.RequestParams;
+import net.tsz.afinal.http.AjaxParams;
+
 import com.xxhong.fzqian.utils.domain.Account;
 import com.xxhong.fzqian.utils.domain.FzqData;
 import com.xxhong.fzqian.utils.domain.UserInfo;
@@ -8,23 +9,23 @@ import com.xxhong.fzqian.utils.domain.UserInfo;
 public class RequestParamsUtil {
 
 	
-	public static RequestParams userInfo2params(UserInfo info) throws DesException {
-		RequestParams params = FzqData.getDefaultParams();
-		params.addBodyParameter("token", Account.getToken());
-		params.addBodyParameter("uid", info.getUuid());
+	public static AjaxParams userInfo2params(UserInfo info) throws DesException {
+		AjaxParams params = FzqData.getDefaultParams();
+		params.put("token", Account.getToken());
+		params.put("uid", info.getUuid());
 		try {
-			params.addBodyParameter("uid_des", Des.decode(info.getUuid()));
+			params.put("uid_des", Des.encode(info.getUuid()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DesException();
 		}
-		params.addBodyParameter("name", info.getUserName());
-		params.addBodyParameter("money", info.getMoney());
-		params.addBodyParameter("user_type", info.getUserType()+"");
-		params.addBodyParameter("cause", info.getCause());
-		params.addBodyParameter("time", info.getTime());
-		params.addBodyParameter("phone", info.getPhone());
-		params.addBodyParameter("notes", info.getDesc());
+		params.put("name", info.getUserName());
+		params.put("money", info.getMoney());
+		params.put("user_type", info.getUserType()+"");
+		params.put("cause", info.getCause());
+		params.put("time", info.getTime());
+		params.put("phone", info.getPhone());
+		params.put("notes", info.getDesc());
 		return params;
 	}
 }
